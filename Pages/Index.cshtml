@@ -1,0 +1,74 @@
+﻿@page
+@{
+	ViewData["Title"] = "Mock Customer Database";
+}
+
+<div>
+	<div style="margin-bottom: 15px">
+<img class="img-fluid mb-4" src="/lib/favicon.svg" width="75"/><h1 class="display-4" style="display: inline-block">Mock Customer Database</h1>
+	</div>
+
+	<p>Easily fetch randomly generated customers from a database consisting of over 50,000 records. All data returned is in JSON format. Each person will have the following attributes stored:</p>
+	<ul class="text-start">
+		<li>Id</li>
+		<li>First name</li>
+		<li>Last name</li>
+		<li>Email</li>
+		<li>Phone number</li>
+		 <li>Address</li>
+		  <li>Credit card number (fake number)</li>
+		   <li>Order total</li>
+	</ul>
+
+	<hr />
+	<p>This endpoint can be used to randomly fetch a single customer from the database.</p>
+	<div style="background-color: #2c3e50; color: white; padding: 15px; margin-bottom: 25px">
+		<a href="/api" style="text-decoration: none"><span style="margin-right: 10px">GET</span> <b>/api</b></a>
+	</div>
+	<p>Use the <i>id</i> query to find a customer based on their id primary key in the database.</p>
+	<div style="background-color: #2c3e50; color: white; padding: 15px; margin-bottom: 25px">
+		<a href="/api?id=12345" style="text-decoration: none"><span style="margin-right: 10px">GET</span> <b>/api?id=12345</b></a>
+	</div>
+	<p>Use the <i>limit</i> url query to fetch up to 1,000 random customer records at once. This makes it easy to generate a large amount of data at once without having to send many different requests. </p>
+	<div style="background-color: #2c3e50; color: white; padding: 15px; margin-bottom: 25px">
+		<a href="/api?limit=250"  style="text-decoration: none"><span style="margin-right: 10px">GET</span> <b>/api?limit=250</b></a>
+	</div>
+	<hr />
+	<p>This is how the returned data will look</p>
+	<div style="background-color: #ecf0f1; padding: 5px 15px 5px 15px">
+		<pre><code>
+[
+  {
+	"id": 1,
+	"first_name": "Armstrong",
+	"last_name": "Bollum",
+	"email": "abollum0@ameblo.jp",
+	"phone_number": "976-133-3903",
+	"address": "4995 Hollow Ridge Hill",
+	"card_number": "4867237547540",
+	"order_total": "$330.98"
+  },
+  {
+	"id": 2,
+	"first_name": "Flossy",
+	"last_name": "Fynan",
+	"email": "ffynan1@surveymonkey.com",
+	"phone_number": "105-166-8295",
+	"address": "9220 Delaware Lane",
+	"card_number": "4041592692905077",
+	"order_total": "$3096.47"
+  },
+  {
+	"id": 3,
+	"first_name": "Sukey",
+	"last_name": "Darwent",
+	"email": "sdarwent2@cloudflare.com",
+	"phone_number": "671-137-7213",
+	"address": "4360 Lakewood Gardens Street",
+	"card_number": "4041379803916528",
+	"order_total": "$8281.22"
+  }
+]
+		</code></pre>
+	</div>
+</div>
