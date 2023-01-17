@@ -9,38 +9,43 @@ namespace CustomerAPI.Pages
 
 	public class ApiModel : PageModel
 	{
-		private readonly CustomerDbContext _db;
-		const int NUM_OF_CUSTOMERS = 50000;
-		public ApiModel(CustomerDbContext DB)
-		{
-			_db = DB;
-		}
+        const int NUM_OF_CUSTOMERS = 50000;
+        private readonly CustomerDbContext _db;
+		[FromQuery(Name = "id")]
+		public int? idQuery { get; set; }
+		[FromQuery(Name = "limit")]
+		public int? limitQuery { get; set; }
+        public ApiModel(CustomerDbContext DB)
+        {
+            _db = DB;
+        }
 
-		public JsonResult? OnGet(int? id, int? limit)
+        //returns json data instead of HTML page
+        public JsonResult OnGet()
 		{
 			try
 			{
 				//?ID QUERY PRESENT
-				if (id != null)
+				if (idQuery != null)
 				{
 					//400
-					if (id == 0 || id > 50000)
+					if (idQuery == 0 || idQuery > 50000)
 					{
 						Response.StatusCode = 400;
 						ErrorMessage err = new ErrorMessage();
-						err.Msg = "id of " + id + " does not exist";
+						err.Msg = "id of " + idQuery + " does not exist";
 						return new JsonResult(err);
 					}
 
 					Response.StatusCode = 200;
-					Customer? customer = _db.customers.Find(id);
+					Customer customer = _db.customers.Find(idQuery);
 					return new JsonResult(customer);
 				}
 				//?LIMIT QUERY PRESENT
-				else if (limit != null)
+				else if (limitQuery != null)
 				{
 					//400
-					if (limit <= 1 || limit > 1000)
+					if (limitQuery <= 1 || limitQuery > 1000)
 					{
 						Response.StatusCode = 400;
 						ErrorMessage err = new ErrorMessage();
@@ -50,8 +55,8 @@ namespace CustomerAPI.Pages
 
 					Response.StatusCode = 200;
 					Random r = new Random();
-					int randomStartIndex = r.Next(0, (int)(NUM_OF_CUSTOMERS - limit)); //makes sure range of customers selected is not out of bounds
-					List<Customer> customers = _db.customers.AsNoTracking().ToList().GetRange(randomStartIndex, (int)limit);
+					int randomStartIndex = r.Next(0, (int)(NUM_OF_CUSTOMERS - limitQuery)); //makes sure range of customers selected is not out of bounds
+					List<Customer> customers = _db.customers.AsNoTracking().ToList().GetRange(randomStartIndex, (int)limitQuery);
 					return new JsonResult(customers);
 				}
 				//default return
@@ -61,7 +66,7 @@ namespace CustomerAPI.Pages
 					Response.StatusCode = 200;
 					Random rand = new Random();
 					int randomID = rand.Next(0, NUM_OF_CUSTOMERS);
-					Customer? customer = _db.customers.Find(randomID);
+					Customer customer = _db.customers.Find(randomID);
 
 					return new JsonResult(customer);
 				}
@@ -76,6 +81,6 @@ namespace CustomerAPI.Pages
 	}
 	class ErrorMessage
 	{
-		public string? Msg { get; set; }
+		public string Msg { get; set; }
 	}
 }
