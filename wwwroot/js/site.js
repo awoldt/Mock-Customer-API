@@ -1,4 +1,6 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const downloadCustomersBtn = document.getElementById("customers_download_btn");
+const numOfCustomers = document.getElementById("download_customers_num");
 
-// Write your JavaScript code.
+numOfCustomers.addEventListener("change", (e) => {
+    downloadCustomersBtn.setAttribute("href", "/download?limit=" + e.target.value);
+})
