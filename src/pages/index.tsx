@@ -97,7 +97,7 @@ export default function Home() {
             </b>
             <p>
               Filters customer records by type of product purchased. Returns a
-              single random record unless limit query is specified.
+              single random record.
             </p>
             <ol>
               <li>Apparel</li>
@@ -117,7 +117,7 @@ export default function Home() {
             </ol>
             <div>
               <i>
-                Example: fetch all customer records that have a product category
+                Example: fetch a customer record that has a product category
                 of home improvement{" "}
                 <a href="/api?product=home-improvement" className="api-link">
                   /api?product=home-improvement
@@ -136,7 +136,7 @@ export default function Home() {
             </p>
             <div>
               <i>
-                Example: fetch up to 731 random customer records
+                Example: fetch 731 random customer records
                 <a href="/api?limit=731" className="api-link">
                   /api?limit=731
                 </a>

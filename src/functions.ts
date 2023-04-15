@@ -72,12 +72,7 @@ export async function FetchRandomCustomer(): Promise<any | null> {
 
 export async function QueryUrl(
   query: _apiQuery
-): Promise<_multipleCustomers | _customer | null> {
-  /* 
-  check all url queries before limit query, check to see
-  if limit query is attached to all queries 
-  */
-
+): Promise<_multipleCustomers | _customer | null | 404 | "limit_error"> {
   try {
     //?PRODUCT
     if (query.product !== undefined) {
@@ -88,14 +83,16 @@ export async function QueryUrl(
           { projection: { _id: false } }
         )
         .toArray();
+      if (data.length === 0) {
+        return 404;
+      }
       const rIndex: number = Math.floor(Math.random() * data.length);
       return data[rIndex];
     }
     //?LIMIT
     if (query.limit !== undefined) {
-      //ERRORS
       if (Number(query.limit) < 2 || Number(query.limit) > 1000) {
-        return null;
+        return "limit_error";
       }
       let data = await customerCollection
         .find({}, { projection: { _id: false } })
