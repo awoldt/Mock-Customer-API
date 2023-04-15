@@ -79,23 +79,8 @@ export async function QueryUrl(
   */
 
   try {
-    //400 ERRORS
-    if (Number(query.limit) < 2 || Number(query.limit) > 1000) {
-      return null;
-    }
-
     //?PRODUCT
     if (query.product !== undefined) {
-      if (query.limit !== undefined) {
-        const data = await customerCollection
-          .find(
-            { product_category: query.product },
-            { projection: { _id: false } }
-          )
-          .toArray();
-
-        return ReturnRandomCustomerArray(Number(query.limit), data);
-      }
       //return single random record with matching product category
       const data = await customerCollection
         .find(
@@ -108,6 +93,10 @@ export async function QueryUrl(
     }
     //?LIMIT
     if (query.limit !== undefined) {
+      //ERRORS
+      if (Number(query.limit) < 2 || Number(query.limit) > 1000) {
+        return null;
+      }
       let data = await customerCollection
         .find({}, { projection: { _id: false } })
         .toArray();

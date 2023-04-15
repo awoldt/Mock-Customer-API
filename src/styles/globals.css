@@ -56,17 +56,22 @@ hr {
   padding: 10px 25px 10px 25px;
   border-radius: 8px;
   display: block;
-  background-color: rgb(255, 200, 87, 0.8);
+  background-color: #ffc857;
   color: white;
   margin-bottom: 50px;
+  font-size: 18px;
 }
 
 .url-query {
-  font-size: 25px;
+  font-size: 30px;
 }
 
 .api-link {
   color: #ffc857;
+}
+
+#awoldt_tag {
+  margin-top: 50px;
 }
 
 /* LG OR BIGGER */
